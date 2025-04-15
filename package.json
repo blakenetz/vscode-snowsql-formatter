@@ -2,7 +2,7 @@
   "name": "vscode-snowsql-formatter",
   "displayName": "SQL Formatter",
   "description": "Format sql files using the sql-formatter npm package",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "publisher": "dwstern-snowflake-security",
   "repository": {
     "type": "git",
