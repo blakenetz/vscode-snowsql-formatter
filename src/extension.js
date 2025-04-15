@@ -23,20 +23,12 @@ const getConfig = ({ insertSpaces, tabSize }) => ({
 
 const format = (text, config) => sqlFormatter.format(text, config);
 
-// Function to create a formatter provider
-const createFormattingProvider = () => ({
-	provideDocumentRangeFormattingEdits: (document, range, options) => [
-		vscode.TextEdit.replace(range, format(document.getText(range), getConfig(options)))
-	]
-});
-
 module.exports.activate = () => {
-	// Register for SQL
-	vscode.languages.registerDocumentRangeFormattingEditProvider('sql', createFormattingProvider());
-
-	// Register for Snowflake SQL
-	vscode.languages.registerDocumentRangeFormattingEditProvider(
-		'snowflake-sql',
-		createFormattingProvider()
-	);
+	['sql', 'snowflake-sql'].forEach(lang => {
+		vscode.languages.registerDocumentRangeFormattingEditProvider(lang, {
+			provideDocumentRangeFormattingEdits: (document, range, options) => [
+				vscode.TextEdit.replace(range, format(document.getText(range), getConfig(options)))
+			]
+		});
+	});
 };
